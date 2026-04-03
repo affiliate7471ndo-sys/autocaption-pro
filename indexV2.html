@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoCaption Pro - Affiliate Generator</title>
+    <style>
+        :root { --primary: #2563eb; --primary-hover: #1d4ed8; --success: #10b981; --bg: #f3f4f6; --text-main: #1f2937; --text-muted: #6b7280; --card-bg: #ffffff; --border: #d1d5db; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background-color: var(--bg); color: var(--text-main); margin: 0; padding: 20px; line-height: 1.5; }
+        .container { max-width: 650px; margin: 0 auto; background: var(--card-bg); padding: 40px; border-radius: 16px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        h1 { text-align: center; color: #111827; font-size: 28px; margin: 0 0 10px 0; font-weight: 800; }
+        p.subtitle { text-align: center; color: var(--text-muted); font-size: 16px; margin-bottom: 30px; margin-top: 0; }
+        
+        fieldset { border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin-bottom: 20px; background-color: #f9fafb; }
+        legend { font-weight: 700; color: var(--primary); padding: 0 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;}
+
+        label { display: block; margin-top: 15px; font-weight: 600; font-size: 14px; color: #374151;}
+        label:first-child { margin-top: 0; }
+        input, select { width: 100%; padding: 12px 15px; margin-top: 8px; border-radius: 8px; border: 1px solid var(--border); box-sizing: border-box; font-size: 15px; transition: border-color 0.2s; }
+        input:focus, select:focus { outline: none; border-color: var(--primary); ring: 2px solid #bfdbfe; }
+        
+        .input-highlight { border: 1px solid #93c5fd; background-color: #eff6ff; }
+
+        button { width: 100%; padding: 15px; margin-top: 25px; border-radius: 8px; border: none; cursor: pointer; font-size: 16px; font-weight: 700; transition: all 0.2s; }
+        .btn-generate { background-color: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2); }
+        .btn-generate:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
+        .btn-copy { background-color: var(--success); color: white; margin-top: 15px; display: none; }
+        .btn-copy:hover { background-color: #059669; }
+        
+        .result-container { display: none; margin-top: 30px; animation: fadeIn 0.5s; }
+        .result-header { font-weight: 700; font-size: 14px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 10px; }
+        .result-box { padding: 25px; background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; min-height: 120px; white-space: pre-wrap; font-size: 15px; color: #111827; overflow-x: auto;}
+        
+        .ad-space { margin-top: 50px; text-align: center; padding: 25px; background-color: #fffbeb; border: 2px dashed #f59e0b; border-radius: 12px; color: #b45309; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 600px) { .container { padding: 20px; } h1 { font-size: 22px; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🚀 AutoCaption Pro</h1>
+    <p class="subtitle">Generator Teks Afiliasi Otomatis.</p>
+
+    <fieldset>
+        <legend>Konteks Masalah/Topik</legend>
+        <label for="topik">Apa masalah yang diselesaikan? (Opsional)</label>
+        <input type="text" id="topik" placeholder="Contoh: Kaki pegal setelah lari, Bingung cari kado unik...">
+    </fieldset>
+
+    <fieldset style="background-color: #eff6ff; border-color: #bfdbfe;">
+        <legend style="color: #1d4ed8;">Produk & Link Referensi</legend>
+        <label for="prodRef" style="color: #1e40af;">Nama Produk Referensi (Spesifik)</label>
+        <input type="text" id="prodRef" class="input-highlight" placeholder="Contoh: Sepatu Sneakers Aerostreet X, Robot Vacuum Cleaner tipe A1">
+
+        <label for="linkRef" style="color: #1e40af;">Link Referensi / Link Afiliasi Anda</label>
+        <input type="text" id="linkRef" class="input-highlight" placeholder="Contoh: shope.ee/xxxxx atau linkbio.com/andadisini">
+    </fieldset>
+
+    <fieldset>
+        <legend>Pengaturan Output</legend>
+        <label for="platform">Platform Target</label>
+        <select id="platform">
+            <option value="tiktok">TikTok (Viral, Hook Kuat, CTA Jelas)</option>
+            <option value="instagram">Instagram (Estetik, Storytelling, Soft Sell)</option>
+        </select>
+
+        <label for="gaya">Gaya Bahasa</label>
+        <select id="gaya">
+            <option value="fomo">Hard Selling (FOMO - Mendesak)</option>
+            <option value="edukasi">Soft Selling (Solutif & Manfaat)</option>
+        </select>
+    </fieldset>
+
+    <button class="btn-generate" onclick="generateCaption()">Buat Konten & Tautan Otomatis</button>
+
+    <div id="resultContainer" class="result-container">
+        <div class="result-header">Output Teks Siap Pakai:</div>
+        <div id="result" class="result-box"></div>
+        <button id="copyBtn" class="btn-copy" onclick="copyText()">📋 Salin Teks</button>
+    </div>
+
+    <div class="ad-space">
+        [TEMPAT BANNER AFILIASI GLOBAL ANDA / KODE ADSENSE] <br>
+        <span style="font-size: 12px; font-weight: normal;">(Iklan pasif ini akan muncul di bawah alat, menghasilkan uang dari traffic)</span>
+    </div>
+</div>
+
+<script>
+    function generateCaption() {
+        // Mengambil input
+        const topik = document.getElementById('topik').value || "produk keren ini";
+        const prodRef = document.getElementById('prodRef').value;
+        const linkRef = document.getElementById('linkRef').value;
+        const platform = document.getElementById('platform').value;
+        const gaya = document.getElementById('gaya').value;
+        const resultContainer = document.getElementById('resultContainer');
+        const resultBox = document.getElementById('result');
+        const copyBtn = document.getElementById('copyBtn');
+
+        // Validasi wajib
+        if (!prodRef || !linkRef) {
+            alert('Wajib memasukkan Nama Produk Referensi dan Link Referensi Anda agar konversi berhasil!');
+            // Beri highlight merah pada input yang kosong
+            if(!prodRef) document.getElementById('prodRef').style.borderColor = "#ef4444";
+            if(!linkRef) document.getElementById('linkRef').style.borderColor = "#ef4444";
+            return;
+        } else {
+            // Reset border color jika sudah diisi
+            document.getElementById('prodRef').style.borderColor = "#93c5fd";
+            document.getElementById('linkRef').style.borderColor = "#93c5fd";
+        }
+
+        let caption = "";
+        
+        // Membersihkan nama produk untuk hashtag
+        const hashtag = prodRef.replace(/[^a-zA-Z0-9]/g, '');
+
+        // LOGIKA DEEP GENERATION (Injeksi Referensi)
+        if (platform === "tiktok") {
+            if (gaya === "fomo") {
+                caption = `Sumpah nyesel banget baru tau alat ini sekarang! 😭🔥 Buat kalian yang sering ${topik}, mumpung masih ada diskon parah.\n\nJangan sampai kehabisan, stok sisa sedikit! Ini aku pakai '${prodRef}'.\n\nLangsung amankan di sini 👇\n🔗 ${linkRef}\n\nKehabisan jangan nangis ya! 🛒💨\n\n#${hashtag} #RacunTiktok #WajibPunya #AffiliateMarketing`;
+            } else {
+                caption = `Stop scroll! 🛑 Kalau kamu lagi ${topik}, ini solusinya. \n\nAwalnya ragu, tapi ternyata pakai '${prodRef}' ini bener-bener ngerubah segalanya. Bahannya premium dan efisien banget.\n\nCek review lengkapnya atau langsung checkout di tautan ini biar gak hilang video ini:\n👉 ${linkRef}\n\nShare ke temen kamu yang butuh ini!\n\n#Tips${hashtag} #SolusiMudah #ReviewJujur`;
+            }
+        } else if (platform === "instagram") {
+            if (gaya === "fomo") {
+                caption = `PROMO TERBATAS! HANYA HARI INI SAJA! 🚨✨\n\nDapatkan '${prodRef}' kualitas terbaik untuk solusi ${topik} kamu. Siapa cepat dia dapat!\n\nKlik link di bio kita: ${linkRef} untuk amankan slot promo kamu sekarang. Jangan jadikan alasan nanti-nanti, karena restocknya lama! ⏰\n\n#${hashtag} #PromoInstagram #FlashSaleIndonesia #LimitedEdition`;
+            } else {
+                caption = `Tingkatkan kualitas harianmu dengan '${prodRef}' ✨\n\nSolusi elegan bagi Anda yang sering mengalami ${topik}. Didesain khusus untuk kenyamanan dan fungsionalitas maksimal.\n\nKunjungi tautan resmi kami di sini untuk spesifikasi lengkap dan pemesanan:\n🌐 ${linkRef}\n\nTautan juga tersedia di bio. Dapatkan kemudahan hari ini.\n\n#${hashtag} #GayaHidupModern #KualitasTerbaik #ElegantStyle`;
+            }
+        }
+
+        // Menampilkan hasil
+        resultContainer.style.display = "block";
+        resultBox.innerText = caption;
+        copyBtn.style.display = "block";
+        
+        // Scroll otomatis ke hasil
+        window.scrollTo({ top: resultContainer.offsetTop - 20, behavior: 'smooth' });
+    }
+
+    function copyText() {
+        const resultBox = document.getElementById('result').innerText;
+        navigator.clipboard.writeText(resultBox).then(() => {
+            alert("Teks & Link berhasil disalin! Siap diposting.");
+        });
+    }
+</script>
+
+</body>
+</html>
